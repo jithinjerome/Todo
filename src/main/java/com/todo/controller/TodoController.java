@@ -1,6 +1,7 @@
 package com.todo.controller;
 
 import com.todo.model.Todo;
+import com.todo.model.User;
 import com.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,11 @@ public class TodoController {
 
     @Autowired
     private TodoService todoService;
+
+    @PostMapping(path = "/register")
+    public User registerUser(@RequestBody User user){
+        return todoService.registerUser(user);
+    }
 
     @GetMapping(path = "/getTodo")
     public List<Todo> getAllTodos() {

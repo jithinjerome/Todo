@@ -3,10 +3,13 @@ package com.todo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.todo.model.User;
+import com.todo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.todo.model.Todo;
 import com.todo.repository.TodoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +17,13 @@ public class TodoService {
 
     @Autowired
     private TodoRepository todoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public User registerUser(User user) {
+        return userRepository.save(user);
+    }
 
     public List<Todo> getAllTodos(){
         return todoRepository.findAll();
@@ -39,4 +49,6 @@ public class TodoService {
     public void deleteTodoById(Long Id){
         todoRepository.deleteById(Id);
     }
+
+
 }
