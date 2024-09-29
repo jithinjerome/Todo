@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.todo.model.Todo;
 import com.todo.repository.TodoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,15 @@ public class TodoService {
 
     public User registerUser(User user) {
         return userRepository.save(user);
+    }
+
+    public ResponseEntity<?> registerUser(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmailAndPassword(email,password);
+        if(userOptional.isPresent())
+        {
+            return new ResponseEntity<>("User login successfull",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Login failed",HttpStatus.BAD_REQUEST);
     }
 
     public List<Todo> getAllTodos(){
@@ -49,6 +59,7 @@ public class TodoService {
     public void deleteTodoById(Long Id){
         todoRepository.deleteById(Id);
     }
+
 
 
 }

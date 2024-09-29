@@ -21,6 +21,11 @@ public class TodoController {
         return todoService.registerUser(user);
     }
 
+    @PostMapping(path = "/login")
+    public ResponseEntity<?> register(@RequestParam String email, @RequestParam String password){
+        return todoService.registerUser(email,password);
+    }
+
     @GetMapping(path = "/getTodo")
     public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
